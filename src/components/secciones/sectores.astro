@@ -1,0 +1,49 @@
+---
+// Para quién: banda de tinta con el titular y, debajo, un mosaico de fotos de borde a borde sin márgenes
+// (1 columna en móvil, 2 en tableta, 3 en escritorio). Cada foto lleva su título y texto sobre un velo que
+// pasa al degradado al pasar el ratón. Campos: `items[]` (titulo, texto, imagen). Sin foto, la celda es de color.
+import { seccion } from '../../data/site';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const items = s ? s.items.filter((i) => i && i.titulo) : [];
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="banda-tinta">
+      <div class="contenedor pt-[var(--ritmo)] pb-12 md:pt-[var(--ritmo-md)] md:pb-16">
+        <div class="grid gap-6 lg:grid-cols-[1.4fr_1fr] lg:items-end lg:gap-16">
+          <div>
+            {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+            {s.titulo && <h2 class="titulo-seccion">{s.titulo}</h2>}
+          </div>
+          {s.texto && <p class="text-lg opacity-75 md:text-xl">{s.texto}</p>}
+        </div>
+      </div>
+      {items.length > 0 ? (
+        <ul class="grid sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((it) => (
+            <li class="sector group relative isolate flex aspect-[16/11] items-end overflow-hidden sm:aspect-[4/3]">
+              <Imagen src={it.imagen} alt={it.titulo} ancho={900} alto={675} class="absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              <div class="sector-velo absolute inset-0 -z-10" aria-hidden="true" />
+              <div class="p-6 text-white md:p-8">
+                <h3 class="text-2xl md:text-3xl">{it.titulo}</h3>
+                {it.texto && <p class="mt-2 max-w-sm opacity-85">{it.texto}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="pb-[var(--ritmo)]" />
+      )}
+    </section>
+  )
+}
+
+<style>
+  .sector { background: var(--degradado-hondo); }
+  .sector-velo { background: linear-gradient(to top, color-mix(in srgb, var(--c-texto) 88%, transparent) 0%, color-mix(in srgb, var(--c-texto) 20%, transparent) 55%, transparent 100%); transition: opacity 0.3s ease; }
+  .sector::after { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--degradado); opacity: 0; mix-blend-mode: multiply; transition: opacity 0.3s ease; }
+  .sector:hover::after { opacity: 0.55; }
+</style>

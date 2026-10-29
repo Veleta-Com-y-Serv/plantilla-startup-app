@@ -1,0 +1,94 @@
+# Metadatos de la plantilla para el catálogo de NoExpertise.
+id: startup-app
+nombre: Aplicación y software
+descripcion: Web de una página para aplicaciones y software, con degradado eléctrico, funciones, planes e integraciones.
+sectores:
+  - { id: software, nombre: Software }
+  - { id: app, nombre: Aplicación móvil }
+  - { id: startup, nombre: Startup }
+  - { id: saas, nombre: Software en la nube }
+  - { id: tecnologia, nombre: Tecnología }
+secciones:
+  - { id: hero, nombre: Portada }
+  - { id: funciones, nombre: Funciones }
+  - { id: producto, nombre: El producto }
+  - { id: sectores, nombre: Para quién }
+  - { id: proceso, nombre: Cómo se empieza }
+  - { id: cifras, nombre: Cifras }
+  - { id: planes, nombre: Planes y precios }
+  - { id: integraciones, nombre: Integraciones }
+  - { id: opiniones, nombre: Opiniones }
+  - { id: preguntas, nombre: Preguntas frecuentes }
+  - { id: cta, nombre: Llamada a la acción }
+  - { id: contacto, nombre: Contacto }
+estilo: tecnologico
+plan_minimo: presencia
+version: 1.0.0
+base: astrowind
+demo_url: https://demo-plantilla-startup-app.noexpertise.com
+activa: true
+orden: 180
+
+# Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
+# tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
+asistente:
+  - id: negocio
+    titulo: "Tu producto"
+    pregunta: "¿Cómo se llama tu aplicación o programa, qué resuelve y para quién es?"
+    ayuda: "El problema que quitas, a quién se lo quitas y por qué te eligen a ti."
+    tipo: texto
+    campos: [nombre, eslogan, seo.titulo, seo.descripcion, secciones.hero.antetitulo, secciones.hero.titulo, secciones.hero.titulo_destacado, secciones.hero.texto]
+  - id: contacto
+    titulo: "Cómo te encuentran"
+    pregunta: "¿Dónde estáis y cómo os pueden llamar o escribir?"
+    ayuda: "Solo lo que quieras que vean tus clientes. Lo que dejes vacío no sale en tu web."
+    tipo: datos
+    campos: [contacto.telefono, contacto.whatsapp, contacto.email, contacto.direccion, contacto.horario, redes.instagram, redes.linkedin]
+  - id: funciones
+    titulo: "Funciones"
+    pregunta: "¿Qué se puede hacer con tu aplicación? Una función por línea, con una frase de qué consigue quien la usa."
+    tipo: texto
+    campos: [secciones.funciones.titulo, secciones.funciones.texto, secciones.funciones.items]
+  - id: producto
+    titulo: "El producto"
+    pregunta: "¿Cómo es usarla en el día a día? Cuéntalo como se lo contarías a un cliente que duda."
+    ayuda: "Dónde funciona (móvil, ordenador), qué tal se aprende y qué tranquilidad da."
+    tipo: texto
+    campos: [secciones.producto.titulo, secciones.producto.texto, secciones.producto.items]
+  - id: sectores
+    titulo: "Para quién"
+    pregunta: "¿Qué tipo de clientes la usan? Uno por línea, con lo que más les ayuda."
+    ayuda: "Si lo prefieres, añádelos luego en Contenido."
+    tipo: lista
+    campos: [secciones.sectores.items]
+  - id: planes
+    titulo: "Planes y precios"
+    pregunta: "¿Qué planes tienes? Nombre, precio, para quién es y qué incluye. Uno por línea."
+    ayuda: "Si no quieres poner precios, escribe «Consultar». Puedes añadirlos luego en Contenido."
+    tipo: lista
+    campos: [secciones.planes.planes]
+  - id: integraciones
+    titulo: "Integraciones"
+    pregunta: "¿Con qué otros programas o servicios se conecta tu aplicación? Uno por línea."
+    tipo: texto
+    campos: [secciones.integraciones.titulo, secciones.integraciones.texto, secciones.integraciones.items]
+  - id: preguntas
+    titulo: "Preguntas frecuentes"
+    pregunta: "¿Qué os preguntan antes de contratar? Escribe cada pregunta y lo que respondéis."
+    ayuda: "Si lo prefieres, añádelos luego en Contenido."
+    tipo: lista
+    campos: [secciones.preguntas.preguntas]
+  - id: fotos
+    titulo: "Tus fotos"
+    pregunta: "Pon una foto de portada y, si quieres, las de tu producto y tus clientes."
+    ayuda: "Sube las tuyas o elige una del banco. Las que no cambies se quedan como están."
+    tipo: fotos
+    campos: [secciones.hero.imagen, secciones.producto.imagen]
+  - id: aspecto
+    titulo: "Colores y logo"
+    pregunta: "Elige los colores de tu web y, si tienes, tu logo."
+    tipo: eleccion
+    campos: [colores.primario, colores.acento, logo]
+  - id: repaso
+    titulo: "Repaso"
+    tipo: repaso

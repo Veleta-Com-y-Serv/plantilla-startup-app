@@ -1,0 +1,174 @@
+# Contenido de la web. Es lo único que rellena la plataforma NoExpertise.
+# Plantilla «Aplicación y software»: una sola página con el menú apuntando a anclas (#id-de-sección).
+# Las secciones se muestran en el orden de este fichero. Para ocultar una: activa: false.
+# Apartado nuevo: un id propio (es su ancla, /#id) con `tipo:` = el diseño de otra sección o `texto`.
+nombre: Cuadra
+eslogan: Turnos, fichajes y vacaciones de tu equipo en una sola aplicación.
+sector: software
+logo: ""          # ruta a una imagen en public/ (p. ej. /logo.svg). Vacío = nombre en texto.
+colores:
+  primario: "#2f54ff"
+  acento: "#8a3ffc"
+  fondo: "#f6f7ff"
+  texto: "#0e0c2b"
+contacto:
+  telefono: "951 20 48 37"
+  email: hola@cuadraturnos.es
+  direccion: Calle Severo Ochoa 14, 29590 Málaga
+  horario: "Lunes a viernes, de 9:00 a 18:00."
+  whatsapp: "+34 644 20 48 37"
+redes:
+  instagram: https://www.instagram.com/
+  facebook: ""
+  linkedin: https://www.linkedin.com/
+menu:
+  - { texto: Funciones, url: "/#funciones" }
+  - { texto: Para quién, url: "/#sectores" }
+  - { texto: Planes, url: "/#planes" }
+  - { texto: Integraciones, url: "/#integraciones" }
+  - { texto: Preguntas, url: "/#preguntas" }
+boton_cabecera: { texto: Pruébala gratis, url: "/#contacto" }
+seo:
+  titulo: Cuadra · App de turnos y fichaje para equipos en Málaga
+  descripcion: "Cuadra organiza los turnos, el fichaje y las vacaciones de tu equipo desde el móvil. Hecha en Málaga para bares, tiendas, clínicas y talleres."
+  tipo: ProfessionalService
+marca_pie: true
+
+secciones:
+  hero:
+    activa: true
+    antetitulo: Hecha en Málaga para equipos pequeños
+    titulo: El cuadrante de tu equipo,
+    titulo_destacado: por fin en orden.   # final del titular, resaltado
+    texto: "Haz los turnos en cinco minutos, deja que tu gente fiche desde el móvil y olvídate de la hoja de cálculo de las vacaciones."
+    imagen: /fotos/hero.jpg
+    cta: { texto: Pruébala 14 días gratis, url: "/#contacto" }
+    cta_secundario: { texto: Ver los planes, url: "/#planes" }
+    items:
+      - { titulo: Sin permanencia }
+      - { titulo: Sin tarjeta para probar }
+      - { titulo: Soporte en castellano }
+
+  funciones:
+    activa: true
+    antetitulo: Funciones
+    titulo: Todo lo que hacías con papel, grupos de mensajes y hojas de cálculo.
+    texto: "Seis herramientas que se hablan entre ellas. Empiezas por la que más te duele y añades el resto cuando quieras."
+    items:
+      - { titulo: Cuadrante semanal, texto: "Arrastra turnos, copia la semana anterior y publícala. Cada persona recibe el suyo en el móvil.", icono: calendario }
+      - { titulo: Fichaje desde el móvil, texto: "Entrada, pausas y salida con un toque. Cumple el registro de jornada obligatorio.", icono: reloj }
+      - { titulo: Vacaciones y ausencias, texto: "Tu equipo las pide desde la aplicación y tú las apruebas viendo quién falta cada día.", icono: sol }
+      - { titulo: Cambios de turno, texto: "Dos compañeros se cambian el turno y a ti solo te llega el visto bueno.", icono: flechas }
+      - { titulo: Avisos al equipo, texto: "Un mensaje a todo el local o solo al turno de tarde, sin mezclarlo con lo personal.", icono: campana }
+      - { titulo: Informes para la gestoría, texto: "Horas trabajadas, extras y ausencias del mes en un fichero listo para enviar.", icono: documento }
+
+  producto:
+    activa: true
+    antetitulo: En el bolsillo
+    titulo: Tu equipo la entiende a la primera.
+    texto: "Nada de cursos ni manuales. Quien sabe usar el móvil sabe usar Cuadra: ve su turno, ficha y pide el día libre desde la misma pantalla.\n\nY tú lo ves todo desde el ordenador o desde el móvil, estés en el local o de vacaciones."
+    imagen: /fotos/producto.jpg
+    items:
+      - { titulo: Funciona en cualquier móvil, texto: "Android, iPhone o el navegador del ordenador." }
+      - { titulo: Datos guardados en Europa, texto: "Copias diarias y acceso solo para tu equipo." }
+      - { titulo: Varios locales en una cuenta, texto: "Cada encargado gestiona el suyo; tú ves el conjunto." }
+    cta: { texto: Quiero verla, url: "/#contacto" }
+
+  sectores:
+    activa: true
+    antetitulo: Para quién
+    titulo: Pensada para quien abre la persiana cada mañana.
+    texto: "Negocios con turnos, horarios que cambian y poco tiempo para papeleo."
+    items:
+      - { titulo: Bares y restaurantes, texto: "Turnos partidos, refuerzos de fin de semana y temporada alta.", imagen: /fotos/sector-hosteleria.jpg }
+      - { titulo: Tiendas y comercios, texto: "Horario comercial, rebajas y domingos de apertura.", imagen: /fotos/sector-comercio.jpg }
+      - { titulo: Clínicas y centros, texto: "Consultas de mañana y tarde, guardias y sustituciones.", imagen: /fotos/sector-clinicas.jpg }
+      - { titulo: Talleres y servicios, texto: "Equipos en la calle que fichan desde donde estén.", imagen: /fotos/sector-talleres.jpg }
+      - { titulo: Gimnasios y academias, texto: "Monitores por horas y clases que cambian cada trimestre.", imagen: /fotos/sector-gimnasios.jpg }
+      - { titulo: Hoteles y apartamentos, texto: "Recepción, limpieza y mantenimiento los siete días.", imagen: /fotos/sector-hoteles.jpg }
+
+  proceso:
+    activa: true
+    antetitulo: Cómo se empieza
+    titulo: En marcha en una tarde.
+    texto: "Sin instalar nada ni llamar a un técnico."
+    items:
+      - { titulo: Crea tu cuenta, texto: "Con tu correo y el nombre del negocio. No pedimos tarjeta.", icono: usuarios }
+      - { titulo: Invita a tu equipo, texto: "Les llega un enlace por WhatsApp o por correo y entran solos.", icono: mensaje }
+      - { titulo: Haz el primer cuadrante, texto: "Parte de una plantilla de tu sector o copia el horario que ya tienes.", icono: calendario }
+      - { titulo: Publica y listo, texto: "Cada persona ve su turno y empieza a fichar desde ese día.", icono: rayo }
+
+  cifras:
+    activa: true
+    antetitulo: Cuadra en números
+    titulo: Negocios que ya no hacen el cuadrante a mano.
+    items:
+      - { titulo: "2.400", texto: negocios la usan cada semana }
+      - { titulo: "38.000", texto: fichajes al día }
+      - { titulo: "6 h", texto: menos de papeleo a la semana }
+      - { titulo: "4,8", texto: de valoración media de los usuarios }
+
+  planes:
+    activa: true
+    antetitulo: Planes
+    titulo: Pagas por las personas que fichan. Nada más.
+    texto: "Todos los planes empiezan con 14 días de prueba de todas las funciones."
+    etiqueta_destacado: El más elegido
+    nota: "Precios sin IVA. Cambia de plan o date de baja cuando quieras."
+    planes:
+      - { nombre: Inicio, precio: "Gratis", periodo: hasta 5 personas, texto: "Para probar con un equipo pequeño.", incluye: "Cuadrante semanal; Fichaje desde el móvil; Vacaciones y ausencias", destacado: false, cta_texto: Empezar gratis }
+      - { nombre: Equipo, precio: "3 €", periodo: por persona y mes, texto: "Para el negocio que ya va en serio.", incluye: "Todo lo del plan Inicio; Cambios de turno; Avisos al equipo; Informes para la gestoría", destacado: true, cta_texto: Probar 14 días }
+      - { nombre: Varios locales, precio: "Consultar", periodo: a partir de 50 personas, texto: "Para cadenas y franquicias.", incluye: "Todo lo del plan Equipo; Varios locales y encargados; Ayuda para el arranque; Conexión con tu programa de nóminas", destacado: false, cta_texto: Hablar con ventas }
+    cta: { texto: Pedir información, url: "/#contacto" }
+
+  integraciones:
+    activa: true
+    antetitulo: Integraciones
+    titulo: Se lleva bien con lo que ya usas.
+    texto: "Cuadra envía los datos donde los necesitas para que no tengas que copiar nada a mano."
+    items:
+      - { titulo: Calendarios, texto: "Los turnos aparecen en el calendario del móvil.", icono: calendario }
+      - { titulo: Correo, texto: "Avisos y resúmenes semanales en tu bandeja.", icono: correo }
+      - { titulo: WhatsApp, texto: "Invitaciones y recordatorios de turno.", icono: whatsapp }
+      - { titulo: Hojas de cálculo, texto: "Exporta horas y ausencias en CSV o Excel.", icono: documento }
+      - { titulo: Nóminas, texto: "Fichero mensual para tu programa de nóminas.", icono: euro }
+      - { titulo: Gestoría, texto: "Acceso de solo lectura para tu asesor.", icono: maletin }
+      - { titulo: Fichaje con tarjeta, texto: "Lectores de tarjeta en la puerta del local.", icono: tarjeta }
+      - { titulo: Conexión abierta, texto: "Para tu programador, si quieres ir más allá.", icono: codigo }
+    cta: { texto: Preguntar por una integración, url: "/#contacto" }
+
+  opiniones:
+    activa: true
+    antetitulo: Lo que dicen
+    titulo: Menos llamadas a las once de la noche.
+    testimonios:
+      - { texto: "Antes hacía el cuadrante el domingo por la noche y el lunes ya había tres cambios. Ahora lo publico el jueves y se cambian ellos.", autor: Lucía R., cargo: Encargada de un restaurante }
+      - { texto: "El fichaje nos lo pedía la inspección y no queríamos un aparato en la pared. Con el móvil está resuelto.", autor: Andrés M., cargo: Dueño de una tienda de deportes }
+      - { texto: "Mandar las horas a la gestoría era media mañana de cada mes. Ahora es un botón.", autor: Pilar G., cargo: Gerente de una clínica de fisioterapia }
+
+  preguntas:
+    activa: true
+    antetitulo: Preguntas frecuentes
+    titulo: Lo que nos preguntan antes de empezar.
+    preguntas:
+      - { pregunta: "¿Sirve para cumplir el registro de jornada?", respuesta: "Sí. Cada fichaje guarda la hora de entrada, las pausas y la salida de cada persona, y puedes descargar el registro cuando te lo pidan." }
+      - { pregunta: "¿Mi equipo tiene que instalar algo?", respuesta: "No es obligatorio. Pueden entrar desde el navegador del móvil con el enlace que les llega, o instalar la aplicación si lo prefieren." }
+      - { pregunta: "¿Qué pasa cuando terminan los 14 días de prueba?", respuesta: "Eliges un plan o te quedas en el gratuito si sois cinco o menos. No te cobramos nada sin avisarte." }
+      - { pregunta: "¿Puedo pasar mis horarios de la hoja de cálculo?", respuesta: "Sí. Nos mandas el fichero y te dejamos el primer cuadrante montado, sin coste." }
+      - { pregunta: "¿Dónde se guardan los datos?", respuesta: "En servidores de la Unión Europea, con copias diarias. Solo tu equipo y quien tú autorices pueden verlos." }
+      - { pregunta: "¿Tenéis soporte si me atasco?", respuesta: "Sí, por chat, correo y teléfono en horario de oficina. Te atiende alguien del equipo, en castellano." }
+
+  cta:
+    activa: true
+    antetitulo: Empieza hoy
+    titulo: El próximo cuadrante, hazlo con Cuadra.
+    texto: "Catorce días con todas las funciones. Sin tarjeta y sin compromiso."
+    cta: { texto: Crear mi cuenta gratis, url: "/#contacto" }
+    cta_secundario: { texto: Hablar con nosotros, url: "/#contacto" }
+
+  contacto:
+    activa: true
+    antetitulo: Contacto
+    titulo: Te enseñamos Cuadra en quince minutos.
+    texto: "Déjanos tus datos y te llamamos para hacer una demostración con los horarios de tu negocio. O escríbenos directamente."
+    boton: Quiero una demostración

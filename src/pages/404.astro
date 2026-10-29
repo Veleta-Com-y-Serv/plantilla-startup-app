@@ -1,0 +1,17 @@
+---
+// Página 404 con el diseño de la plantilla: banda en degradado a sangre y cifra gigante.
+import Base from '../layouts/Base.astro';
+---
+
+<Base titulo="Página no encontrada">
+  <section class="banda-degradado relative isolate overflow-hidden">
+    <div class="rejilla-fondo pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
+    <div class="contenedor flex min-h-[75svh] flex-col justify-center py-20">
+      <p class="antetitulo">Error 404</p>
+      <p class="mt-4 font-display text-[clamp(6rem,24vw,18rem)] leading-[.85] font-black tracking-[-0.06em]" aria-hidden="true">404</p>
+      <h1 class="mt-6 text-[clamp(2rem,5vw,4rem)]">Esta página no existe</h1>
+      <p class="mt-4 max-w-xl text-lg opacity-90">Puede que el enlace esté mal o que la página se haya movido.</p>
+      <p class="mt-10"><a class="btn btn-blanco" href="/">Volver al inicio</a></p>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,48 @@
+---
+// Apartado de texto genérico (apartados nuevos del cliente, site.yaml: `tipo: texto`). Banda clara a todo el
+// ancho. Con imagen: fila 50/50 con la foto a sangre a la derecha (arriba en móvil). Sin imagen: titular a la
+// izquierda y párrafos a la derecha. Lista opcional con icono (`items[]`: titulo, texto, icono) y botón (`cta`).
+import { seccion, parrafos } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const items = s ? s.items.filter((i) => i && i.titulo) : [];
+const conFoto = !!s?.imagen;
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class:list={['banda-clara', conFoto ? 'columna-estrecha grid lg:grid-cols-2' : 'seccion']}>
+      {conFoto && (
+        <div class="relative min-h-[22rem] overflow-hidden bg-primario md:min-h-[30rem] lg:order-last lg:min-h-[40rem]">
+          <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={900} class="absolute inset-0 h-full w-full object-cover" />
+        </div>
+      )}
+      <div class:list={[conFoto ? 'flex flex-col px-4 py-16 md:px-12 md:py-24 lg:items-end xl:px-20' : 'contenedor grid gap-8 lg:grid-cols-[1fr_1.3fr] lg:gap-20']}>
+        <div class:list={{ 'w-full max-w-[38rem]': conFoto }}>
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          {s.titulo && <h2 class="titulo-seccion">{s.titulo}</h2>}
+        </div>
+        <div class:list={{ 'w-full max-w-[38rem]': conFoto, 'lg:pt-12': !conFoto }}>
+          <div class:list={['mt-7 space-y-4 text-lg opacity-80', { 'lg:mt-0': !conFoto }]}>{parrafos(s.texto).map((p) => <p>{p}</p>)}</div>
+          {items.length > 0 && (
+            <ul class="mt-10 grid gap-5 sm:grid-cols-2">
+              {items.map((it) => (
+                <li class="flex gap-4">
+                  <span class="icono-caja h-11 w-11"><Icono nombre={it.icono} tam={20} /></span>
+                  <div>
+                    <p class="font-bold">{it.titulo}</p>
+                    {it.texto && <p class="text-sm opacity-70">{it.texto}</p>}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          {s.cta?.url && <a class="btn mt-10" href={s.cta.url}>{s.cta.texto}</a>}
+        </div>
+      </div>
+    </section>
+  )
+}

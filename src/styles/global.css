@@ -1,0 +1,94 @@
+/* Aplicación y software — estilo tecnológico: degradado eléctrico (primario → acento) a sangre, bandas a todo el
+   ancho que alternan claro, tinta y degradado, sans de sistema muy pesada, etiquetas en monoespaciada,
+   botones píldora y esquinas de 1,5 rem. Todo sale de las cuatro variables de color de site.yaml. */
+@import "tailwindcss";
+@import "./comun.css";
+@config "../../tailwind.config.mjs";
+
+:root {
+  --fuente-texto: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fuente-titulos: "Segoe UI Variable Display", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fuente-mono: ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --radio: 1.5rem; --ritmo: 4.5rem; --ritmo-md: 8rem; --ancho: 90rem;
+  --alto-cabecera: 4.5rem;
+  /* Derivados de los cuatro colores del cliente */
+  --degradado: linear-gradient(120deg, var(--c-primario) 0%, var(--c-acento) 100%);
+  --degradado-hondo: linear-gradient(125deg, color-mix(in srgb, var(--c-primario) 84%, var(--c-texto)) 0%, color-mix(in srgb, var(--c-acento) 80%, var(--c-texto)) 100%);
+  --tinta: color-mix(in srgb, var(--c-texto) 94%, var(--c-primario));
+  --suave: color-mix(in srgb, var(--c-primario) 7%, var(--c-fondo));
+  --linea: color-mix(in srgb, var(--c-texto) 12%, transparent);
+}
+
+@layer base {
+  body { font-family: var(--fuente-texto); font-size: 1.0625rem; line-height: 1.6; }
+  h1, h2, h3 { font-family: var(--fuente-titulos); font-weight: 850; letter-spacing: -0.04em; line-height: 1; }
+}
+
+@layer components {
+  /* Bandas a todo el ancho */
+  .banda-clara { background: var(--c-fondo); color: var(--c-texto); }
+  .banda-suave { background: var(--suave); color: var(--c-texto); }
+  .banda-tinta { background: var(--tinta); color: var(--c-fondo); --linea: color-mix(in srgb, var(--c-fondo) 14%, transparent); }
+  .banda-degradado { background: var(--degradado-hondo); color: #fff; --linea: rgb(255 255 255 / .22); }
+  .rejilla-fondo { background-image: linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px); background-size: 56px 56px; opacity: .08; }
+
+  /* Titulares */
+  .antetitulo { display: inline-flex; align-items: center; gap: .75rem; font-family: var(--fuente-mono); font-size: .78rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+  .antetitulo::before { content: ""; width: 2rem; height: 3px; border-radius: 3px; background: var(--degradado); flex: none; }
+  .banda-degradado .antetitulo::before, .hero-app .antetitulo::before { background: currentColor; opacity: .8; }
+  .titulo-seccion { font-size: clamp(2.2rem, 5.6vw, 4.6rem); margin-top: 1rem; }
+  .titular { max-width: 60rem; margin-bottom: 3rem; }
+  @media (min-width: 768px) { .titular { margin-bottom: 4rem; } }
+  .titular--centro { margin-inline: auto; text-align: center; }
+  /* Títulos en media columna (filas 50/50, titular lateral): un punto menos para que no partan en cuatro líneas */
+  .columna-estrecha .titulo-seccion { font-size: clamp(2.2rem, 4.4vw, 3.9rem); }
+  .titular-texto { margin-top: 1.25rem; font-size: 1.2rem; max-width: 42rem; opacity: .75; }
+  .titular--centro .titular-texto { margin-inline: auto; }
+  .degradado-texto { background: var(--degradado); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .mono { font-family: var(--fuente-mono); }
+
+  /* Botones píldora */
+  .btn { border-radius: 999px; background: var(--degradado); color: #fff; font-weight: 700; padding-inline: 1.6rem; min-height: 3rem; box-shadow: 0 12px 30px -12px var(--c-primario); }
+  .btn:hover { filter: brightness(1.1); }
+  .btn-sec { border-radius: 999px; border: 1.5px solid color-mix(in srgb, currentColor 35%, transparent); font-weight: 700; padding-inline: 1.6rem; min-height: 3rem; }
+  .btn-sec:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
+  .btn-blanco { background: #fff; color: var(--c-texto); box-shadow: 0 14px 34px -14px rgb(0 0 0 / .5); }
+  .btn-blanco:hover { filter: none; background: color-mix(in srgb, #fff 88%, var(--c-acento)); }
+
+  .icono-caja { display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 1rem; background: var(--degradado); color: #fff; flex: none; box-shadow: 0 10px 24px -12px var(--c-acento); }
+
+  /* Cabecera fija: transparente sobre el hero y sólida al hacer scroll (sin JavaScript, siempre sólida). */
+  .cabecera--app { position: fixed; inset: 0 0 auto 0; background: color-mix(in srgb, var(--c-fondo) 92%, transparent); color: var(--c-texto); backdrop-filter: blur(14px); border-bottom: 1px solid var(--linea); transition: background-color .25s ease, color .25s ease, border-color .25s ease; }
+  .cabecera--app .cabecera-fila { min-height: var(--alto-cabecera); }
+  .cabecera--app .marca-inicial { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: .75rem; background: var(--degradado); color: #fff; font-weight: 900; font-family: var(--fuente-titulos); }
+  .cabecera--app .marca-nombre { font-family: var(--fuente-titulos); font-weight: 850; letter-spacing: -0.03em; font-size: 1.3rem; }
+  .cabecera--app .cabecera-nav { gap: 2rem; }
+  .cabecera--app .cabecera-nav a { font-size: .95rem; font-weight: 600; opacity: .8; }
+  .cabecera--app .cabecera-nav a:hover { opacity: 1; }
+  .cabecera--app .cabecera-cta { min-height: 2.75rem; box-shadow: none; }
+  .cabecera--app .menu-movil summary { min-height: 2.75rem; padding-inline: 1rem; border-radius: 999px; border: 1.5px solid color-mix(in srgb, currentColor 30%, transparent); }
+  .cabecera--app.transparente { background: transparent; color: #fff; border-color: transparent; backdrop-filter: none; }
+  .cabecera--app.transparente .marca-inicial { background: #fff; color: var(--c-primario); }
+  .cabecera--app.transparente .cabecera-cta { background: #fff; color: var(--c-texto); }
+  .cabecera--app .menu-movil[open] summary { background: var(--c-fondo); color: var(--c-texto); }
+  .menu-movil-panel { border-radius: 0 0 var(--radio) var(--radio); border-bottom: 1px solid var(--linea); }
+  .menu-movil-panel a { min-height: 2.75rem; display: flex; align-items: center; font-weight: 600; }
+  .menu-movil-panel .btn { color: #fff; }
+  main { padding-top: var(--alto-cabecera); }
+  /* El hero que abre la página sube por debajo de la cabecera fija */
+  .hero-app--primera { margin-top: calc(-1 * var(--alto-cabecera)); }
+
+  /* Pie */
+  .pie--app { background: var(--tinta); color: var(--c-fondo); overflow: hidden; padding-top: 5rem; }
+  .pie--app .pie-nombre { font-family: var(--fuente-titulos); font-weight: 850; letter-spacing: -0.03em; font-size: 1.6rem; }
+  .pie--app .pie-titulo { font-family: var(--fuente-mono); letter-spacing: .14em; }
+  .pie--app .pie-lista a, .pie--app .pie-lista li { opacity: .85; }
+  .pie--app .pie-redes a { border-radius: 999px; border: 1px solid color-mix(in srgb, var(--c-fondo) 25%, transparent); padding: .6rem; }
+  .pie--app .pie-legal { border-color: color-mix(in srgb, var(--c-fondo) 15%, transparent); }
+  .pie-marca-gigante { font-family: var(--fuente-titulos); font-weight: 900; letter-spacing: -0.06em; line-height: .8; font-size: clamp(4.5rem, 19vw, 18rem); white-space: nowrap; background: var(--degradado); -webkit-background-clip: text; background-clip: text; color: transparent; margin-top: 3rem; margin-bottom: -.1em; user-select: none; }
+
+  /* Formulario */
+  .campo input, .campo textarea { border-radius: 1rem; min-height: 3rem; background: color-mix(in srgb, var(--c-texto) 4%, var(--c-fondo)); border-color: var(--linea); }
+  .campo input:focus, .campo textarea:focus { outline: 2px solid var(--c-primario); outline-offset: 1px; }
+  .campo-check input { width: 1.25rem; height: 1.25rem; min-height: 0; }
+}

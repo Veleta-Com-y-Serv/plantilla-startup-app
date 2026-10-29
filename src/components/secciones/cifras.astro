@@ -1,0 +1,40 @@
+---
+// Cifras: banda en degradado a todo el ancho con las cifras enormes en columnas separadas por líneas
+// (2 en móvil, 4 en escritorio). Campos: `items[]` (titulo = la cifra, texto). Sin cifras no se pinta.
+import { seccion } from '../../data/site';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const cifras = s ? s.items.filter((i) => i && i.titulo) : [];
+---
+
+{
+  s && cifras.length > 0 && (
+    <section id={Astro.props.id} class="seccion banda-degradado relative isolate overflow-hidden">
+      <div class="rejilla-fondo pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
+      <div class="contenedor">
+        {(s.antetitulo || s.titulo) && (
+          <div class="mb-12 max-w-4xl md:mb-16">
+            {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+            {s.titulo && <h2 class="mt-4 text-[clamp(1.8rem,3.6vw,3rem)]">{s.titulo}</h2>}
+          </div>
+        )}
+        <dl class:list={['cifras grid grid-cols-2', { 'lg:grid-cols-4': cifras.length >= 4, 'lg:grid-cols-3': cifras.length === 3 }]}>
+          {cifras.map((c) => (
+            <div class="cifra py-6 pr-4 lg:py-2 lg:pr-8">
+              <dt class="cifra-valor">{c.titulo}</dt>
+              {c.texto && <dd class="mono mt-3 text-sm opacity-85 md:text-base">{c.texto}</dd>}
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .cifra { border-top: 1px solid var(--linea); }
+  @media (min-width: 1024px) {
+    .cifra { border-top: 0; border-left: 1px solid var(--linea); padding-left: 2rem; }
+  }
+  .cifra-valor { font-family: var(--fuente-titulos); font-weight: 900; letter-spacing: -0.05em; line-height: 0.9; font-size: clamp(2.8rem, 7vw, 6rem); overflow-wrap: anywhere; }
+</style>

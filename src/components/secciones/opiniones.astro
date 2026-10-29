@@ -1,0 +1,53 @@
+---
+// Opiniones: banda clara con la primera opinión como cita enorme (comilla gigante en degradado) y las demás en
+// columnas debajo, separadas por una línea. Campos: `testimonios[]` (texto, autor, cargo). Sin opiniones no se pinta.
+import { seccion } from '../../data/site';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const ops = s ? s.testimonios.filter((t) => t && t.texto) : [];
+const [primera, ...resto] = ops;
+---
+
+{
+  s && primera && (
+    <section id={Astro.props.id} class="seccion banda-clara relative overflow-hidden">
+      <div class="contenedor">
+        <div class="flex flex-wrap items-baseline justify-between gap-x-10 gap-y-3 border-b border-texto/10 pb-6">
+          {s.titulo && <h2 class="text-[clamp(1.5rem,2.6vw,2.25rem)]">{s.titulo}</h2>}
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+        </div>
+        <figure class="relative mt-24 md:mt-32">
+          <span class="cita-comilla degradado-texto" aria-hidden="true">“</span>
+          <blockquote class="cita-grande relative max-w-[70rem]">{primera.texto}</blockquote>
+          {primera.autor && (
+            <figcaption class="mt-8 flex flex-wrap items-center gap-x-4 gap-y-1">
+              <span class="h-[3px] w-10 rounded bg-primario" aria-hidden="true" />
+              <span class="text-lg font-bold">{primera.autor}</span>
+              {primera.cargo && <span class="mono text-sm opacity-65">{primera.cargo}</span>}
+            </figcaption>
+          )}
+        </figure>
+        {resto.length > 0 && (
+          <ul class:list={['mt-16 grid gap-10 border-t border-texto/10 pt-12 md:mt-20', { 'md:grid-cols-2': resto.length >= 2, 'lg:grid-cols-3': resto.length >= 3 }]}>
+            {resto.map((t) => (
+              <li>
+                <blockquote class="text-xl leading-snug font-semibold md:text-2xl">«{t.texto}»</blockquote>
+                {t.autor && (
+                  <p class="mt-5">
+                    <span class="font-bold">{t.autor}</span>
+                    {t.cargo && <span class="mono block text-sm opacity-65">{t.cargo}</span>}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .cita-comilla { position: absolute; left: -0.5rem; top: -0.55em; font-family: Georgia, "Times New Roman", serif; font-size: clamp(9rem, 22vw, 18rem); line-height: 1; opacity: 0.25; pointer-events: none; }
+  .cita-grande { font-family: var(--fuente-titulos); font-weight: 800; letter-spacing: -0.035em; line-height: 1.08; font-size: clamp(1.8rem, 4.4vw, 4rem); text-wrap: balance; }
+</style>

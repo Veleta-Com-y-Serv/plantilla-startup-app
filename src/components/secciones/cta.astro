@@ -1,0 +1,33 @@
+---
+// Llamada a la acción: banda en degradado de borde a borde con anillos y rejilla de fondo, titular enorme
+// centrado y dos botones píldora. Campos: antetitulo, titulo, texto, cta, cta_secundario.
+import { seccion } from '../../data/site';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="banda-degradado relative isolate overflow-hidden">
+      <div class="rejilla-fondo pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
+      <div class="cta-anillos pointer-events-none absolute -z-10" aria-hidden="true" />
+      <div class="contenedor flex min-h-[70svh] flex-col items-center justify-center py-24 text-center md:py-32">
+        {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+        {s.titulo && <h2 class="cta-titulo mt-6 max-w-6xl">{s.titulo}</h2>}
+        {s.texto && <p class="mt-7 max-w-2xl text-lg opacity-90 md:text-2xl">{s.texto}</p>}
+        {(s.cta?.url || s.cta_secundario?.url) && (
+          <div class="mt-10 flex flex-wrap justify-center gap-3">
+            {s.cta?.url && <a href={s.cta.url} class="btn btn-blanco">{s.cta.texto}<Icono nombre="flecha" tam={18} /></a>}
+            {s.cta_secundario?.url && <a href={s.cta_secundario.url} class="btn-sec">{s.cta_secundario.texto}</a>}
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .cta-titulo { font-size: clamp(2.5rem, 7.5vw, 7rem); font-weight: 900; letter-spacing: -0.05em; line-height: 0.95; }
+  .cta-anillos { left: 50%; top: 50%; width: 70rem; height: 70rem; transform: translate(-50%, -50%); border-radius: 50%; background: repeating-radial-gradient(circle, transparent 0 5.5rem, rgb(255 255 255 / 0.09) 5.5rem calc(5.5rem + 1px)); }
+</style>

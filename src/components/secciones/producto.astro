@@ -1,0 +1,54 @@
+---
+// Producto: fila 50/50 a sangre. La foto toca el borde izquierdo de la ventana (en móvil, arriba y a todo el
+// ancho) con un círculo en degradado encima; el texto a la derecha con párrafos, lista con check y botón.
+// Campos: imagen, antetitulo, titulo, texto (párrafos separados por línea en blanco), items[] (titulo, texto), cta.
+// Sin foto, el texto ocupa la banda entera.
+import { seccion, parrafos } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const items = s ? s.items.filter((i) => i && i.titulo) : [];
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class:list={['banda-suave columna-estrecha grid', { 'lg:grid-cols-2': s.imagen }]}>
+      {s.imagen && (
+        <div class="producto-foto relative min-h-[22rem] overflow-hidden md:min-h-[30rem] lg:min-h-[44rem]">
+          <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={900} class="absolute inset-0 h-full w-full object-cover" />
+          <div class="producto-anillo absolute" aria-hidden="true" />
+        </div>
+      )}
+      <div class:list={['flex items-center px-4 py-16 md:px-12 md:py-24 xl:px-20', { 'contenedor': !s.imagen }]}>
+        <div class="max-w-[38rem]">
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          {s.titulo && <h2 class="titulo-seccion">{s.titulo}</h2>}
+          <div class="mt-7 space-y-4 text-lg opacity-80">
+            {parrafos(s.texto).map((p) => <p>{p}</p>)}
+          </div>
+          {items.length > 0 && (
+            <ul class="mt-10 grid gap-5">
+              {items.map((it) => (
+                <li class="flex gap-4">
+                  <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-primario text-white"><Icono nombre="check" tam={18} /></span>
+                  <div>
+                    <p class="text-lg font-bold">{it.titulo}</p>
+                    {it.texto && <p class="opacity-70">{it.texto}</p>}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          {s.cta?.url && <a class="btn mt-10" href={s.cta.url}>{s.cta.texto}</a>}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .producto-foto { background: var(--degradado); }
+  .producto-anillo { right: -5rem; bottom: -5rem; width: 16rem; height: 16rem; border-radius: 50%; border: 2.25rem solid var(--c-acento); opacity: 0.85; mix-blend-mode: multiply; }
+</style>

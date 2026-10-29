@@ -1,0 +1,39 @@
+---
+// Preguntas frecuentes: banda suave; titular fijo a la izquierda en escritorio y, a la derecha, acordeón nativo
+// <details> en filas separadas por líneas (sin tarjetas), con un «+» en círculo de degradado. Sin JavaScript.
+// Campos: `preguntas[]` (pregunta, respuesta). Sin preguntas no se pinta. También sirve de diseño (`tipo: preguntas`).
+import { seccion } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const preguntas = s ? s.preguntas.filter((p) => p && p.pregunta) : [];
+---
+
+{
+  s && preguntas.length > 0 && (
+    <section id={Astro.props.id} class="seccion banda-suave">
+      <div class="contenedor columna-estrecha grid gap-6 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
+        <Titular class="lg:sticky lg:top-28 lg:self-start" antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        <div class="border-t border-texto/15">
+          {preguntas.map((p, i) => (
+            <details class="faq border-b border-texto/15" open={i === 0}>
+              <summary class="flex min-h-[2.75rem] items-center justify-between gap-6 py-6 text-lg font-bold md:py-7 md:text-2xl md:tracking-tight">
+                {p.pregunta}
+                <span class="faq-signo grid h-10 w-10 shrink-0 place-items-center rounded-full text-2xl text-white" aria-hidden="true"><span>+</span></span>
+              </summary>
+              {p.respuesta && <p class="max-w-2xl pr-12 pb-8 text-lg opacity-75">{p.respuesta}</p>}
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .faq summary { list-style: none; cursor: pointer; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq-signo { background: var(--degradado); }
+  .faq-signo span { display: block; line-height: 1; transition: transform 0.2s ease; }
+  .faq[open] .faq-signo span { transform: rotate(45deg); }
+</style>

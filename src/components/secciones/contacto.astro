@@ -1,0 +1,53 @@
+---
+// Contacto: banda partida 50/50 de borde a borde. Mitad de tinta con el titular y el contacto directo en grande
+// (teléfono, WhatsApp, correo, dirección y horario de site.yaml → contacto); mitad clara con el formulario
+// (mailto). En móvil, una encima de otra. Campos: antetitulo, titulo, texto, boton (texto del botón, opcional).
+import { seccion, site, tel, whatsapp, mapa, campo } from '../../data/site';
+import Icono from '../ui/Icono.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const c = site.contacto;
+const boton = campo(s?.boton) || 'Enviar mensaje';
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="columna-estrecha grid lg:grid-cols-2">
+      <div class="banda-tinta relative isolate flex overflow-hidden px-4 py-16 md:px-12 md:py-24 xl:px-20">
+        <div class="contacto-halo pointer-events-none absolute -z-10" aria-hidden="true" />
+        <div class="w-full max-w-[38rem] lg:ml-auto">
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          {s.titulo && <h2 class="titulo-seccion">{s.titulo}</h2>}
+          {s.texto && <p class="titular-texto">{s.texto}</p>}
+          <ul class="mt-10 grid gap-5">
+            {c.telefono && (
+              <li><a class="flex min-h-[2.75rem] items-center gap-4 text-2xl font-extrabold tracking-tight md:text-3xl" href={tel(c.telefono)}><span class="icono-caja h-12 w-12 rounded-full"><Icono nombre="telefono" tam={22} /></span>{c.telefono}</a></li>
+            )}
+            {c.whatsapp && (
+              <li><a class="flex min-h-[2.75rem] items-center gap-4 text-lg font-semibold" href={whatsapp(c.whatsapp)} rel="noopener" target="_blank"><span class="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-current/25"><Icono nombre="whatsapp" tam={22} /></span>WhatsApp</a></li>
+            )}
+            {c.email && (
+              <li><a class="flex min-h-[2.75rem] items-center gap-4 text-lg font-semibold break-all" href={`mailto:${c.email}`}><span class="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-current/25"><Icono nombre="correo" tam={22} /></span>{c.email}</a></li>
+            )}
+            {c.direccion && (
+              <li><a class="flex min-h-[2.75rem] items-center gap-4 opacity-85" href={mapa(c.direccion)} rel="noopener" target="_blank"><span class="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-current/25"><Icono nombre="mapa" tam={22} /></span>{c.direccion}</a></li>
+            )}
+            {c.horario && (
+              <li class="flex items-center gap-4 opacity-85"><span class="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-current/25"><Icono nombre="reloj" tam={22} /></span>{c.horario}</li>
+            )}
+          </ul>
+        </div>
+      </div>
+      <div class="banda-clara px-4 py-16 md:px-12 md:py-24 xl:px-20">
+        <div class="w-full max-w-[38rem]">
+          <FormularioContacto boton={boton} />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .contacto-halo { right: -12rem; top: -12rem; width: 32rem; height: 32rem; border-radius: 50%; background: radial-gradient(circle, var(--c-acento) 0%, transparent 65%); opacity: 0.35; filter: blur(20px); }
+</style>

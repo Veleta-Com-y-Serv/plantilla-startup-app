@@ -1,0 +1,45 @@
+---
+// Integraciones: banda de tinta a todo el ancho; a la izquierda el titular fijo con su botón y, a la derecha,
+// una rejilla de piezas con icono (2 columnas en móvil y tableta, 4 en escritorio ancho) que recuerda a un panel
+// de conexiones. Campos: `items[]` (titulo, texto, icono), cta.
+import { seccion } from '../../data/site';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const items = s ? s.items.filter((i) => i && i.titulo) : [];
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="seccion banda-tinta relative isolate overflow-hidden">
+      <div class="integra-halo pointer-events-none absolute -z-10" aria-hidden="true" />
+      <div class="contenedor columna-estrecha grid gap-12 lg:grid-cols-[1fr_1.7fr] lg:gap-16">
+        <div class="lg:sticky lg:top-28 lg:self-start">
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          {s.titulo && <h2 class="titulo-seccion">{s.titulo}</h2>}
+          {s.texto && <p class="titular-texto">{s.texto}</p>}
+          {s.cta?.url && <a class="btn mt-9" href={s.cta.url}>{s.cta.texto}</a>}
+        </div>
+        {items.length > 0 && (
+          <ul class="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 xl:grid-cols-4">
+            {items.map((it) => (
+              <li class="integra flex items-start gap-4 rounded-[var(--radio)] p-4 min-[420px]:flex-col min-[420px]:gap-5 md:p-6">
+                <span class="icono-caja h-12 w-12"><Icono nombre={it.icono} tam={24} /></span>
+                <div>
+                  <h3 class="text-lg font-bold tracking-tight md:text-xl">{it.titulo}</h3>
+                  {it.texto && <p class="mt-1.5 text-sm opacity-70">{it.texto}</p>}
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .integra { background: color-mix(in srgb, var(--c-fondo) 6%, transparent); border: 1px solid color-mix(in srgb, var(--c-fondo) 12%, transparent); transition: border-color 0.2s ease, transform 0.2s ease; }
+  .integra:hover { border-color: var(--c-acento); transform: translateY(-2px); }
+  .integra-halo { left: -10rem; bottom: -14rem; width: 36rem; height: 36rem; border-radius: 50%; background: radial-gradient(circle, var(--c-primario) 0%, transparent 65%); opacity: 0.35; filter: blur(20px); }
+</style>

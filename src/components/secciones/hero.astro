@@ -1,0 +1,119 @@
+---
+// Hero a sangre: degradado eléctrico (primario → acento) de borde a borde con la foto de portada fundida
+// debajo, titular enorme con el final resaltado (`titulo_destacado`), dos botones, sellos cortos (`items`,
+// solo `titulo`) y una maqueta de la aplicación hecha con CSS (ordenador + móvil, decorativa, sin texto
+// salvo el nombre del negocio). Si abre la página, sube por debajo de la cabecera fija transparente.
+import { seccion, site } from '../../data/site';
+import { altHero } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string; primera?: boolean }
+const { id, primera = false } = Astro.props;
+const s = seccion(id);
+const destacado = typeof s?.titulo_destacado === 'string' ? s.titulo_destacado.trim() : '';
+const sellos = s ? s.items.filter((i) => i && i.titulo) : [];
+
+// Maqueta: 7 días × 5 franjas; cada número es un tipo de turno (0 = libre). Pura decoración.
+const turnos = [
+  [1, 1, 0, 2, 2, 3, 0],
+  [2, 0, 1, 1, 3, 3, 1],
+  [0, 2, 2, 0, 1, 1, 2],
+  [3, 3, 1, 2, 0, 2, 3],
+  [1, 0, 3, 3, 2, 0, 1],
+];
+---
+
+{
+  s && (
+    <section id={id} class:list={['hero-app relative isolate overflow-hidden banda-degradado', { 'hero-app--primera': primera }]}>
+      <Imagen src={s.imagen} alt={altHero()} ancho={1920} alto={1080} prioridad={primera} class="hero-foto absolute inset-0 -z-10 h-full w-full object-cover" />
+      <div class="hero-velo absolute inset-0 -z-10" aria-hidden="true" />
+      <div class="rejilla-fondo pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
+      <div class="hero-halo pointer-events-none absolute -z-10" aria-hidden="true" />
+
+      <div class:list={['contenedor grid min-h-[88svh] items-center gap-14 pb-16 lg:grid-cols-[1.08fr_.92fr] lg:gap-10 lg:pb-24', primera ? 'pt-[calc(var(--alto-cabecera)+3rem)] lg:pt-[calc(var(--alto-cabecera)+4rem)]' : 'pt-16 lg:pt-24']}>
+        <div class="min-w-0">
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          <h1 class="hero-titulo mt-6">
+            {s.titulo}
+            {destacado && <span class="block"> <span class="hero-destacado">{destacado}</span></span>}
+          </h1>
+          {s.texto && <p class="mt-7 max-w-xl text-lg opacity-90 md:text-xl">{s.texto}</p>}
+          {(s.cta?.url || s.cta_secundario?.url) && (
+            <div class="mt-9 flex flex-wrap gap-3">
+              {s.cta?.url && <a class="btn btn-blanco" href={s.cta.url}>{s.cta.texto}<Icono nombre="flecha" tam={18} /></a>}
+              {s.cta_secundario?.url && <a class="btn-sec" href={s.cta_secundario.url}>{s.cta_secundario.texto}</a>}
+            </div>
+          )}
+          {sellos.length > 0 && (
+            <ul class="mono mt-9 flex flex-wrap gap-x-6 gap-y-2 text-sm opacity-90">
+              {sellos.map((i) => (
+                <li class="flex items-center gap-2"><Icono nombre="check" tam={18} />{i.titulo}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="maqueta relative mx-auto w-full max-w-[40rem] pb-10 lg:pb-0" aria-hidden="true">
+          <div class="maqueta-ventana">
+            <div class="maqueta-barra">
+              <span /><span /><span />
+              <em>{site.nombre}</em>
+            </div>
+            <div class="maqueta-cuerpo">
+              <div class="maqueta-lateral">
+                <i class="activo" /><i /><i /><i /><i />
+              </div>
+              <div class="maqueta-rejilla">
+                {turnos.flat().map((t) => <b class={`t${t}`} />)}
+              </div>
+            </div>
+          </div>
+          <div class="maqueta-movil">
+            <div class="maqueta-movil-pantalla">
+              <i class="linea corta" />
+              <div class="boton-fichar"><Icono nombre="reloj" tam={30} /></div>
+              <i class="linea" /><i class="linea" /><i class="linea media" />
+            </div>
+          </div>
+          <div class="maqueta-aviso"><Icono nombre="check" tam={18} /><i /></div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .hero-foto { mix-blend-mode: luminosity; opacity: 0.28; }
+  .hero-velo { background: radial-gradient(ellipse at 15% 20%, transparent 0%, color-mix(in srgb, var(--c-texto) 35%, transparent) 100%); }
+  .hero-halo { right: -12rem; top: 10%; width: 40rem; height: 40rem; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--c-acento) 70%, #fff) 0%, transparent 65%); opacity: 0.35; filter: blur(30px); }
+  .hero-titulo { font-size: clamp(2.6rem, 8.6vw, 6.6rem); font-weight: 900; letter-spacing: -0.05em; line-height: 0.95; }
+  .hero-destacado { background: linear-gradient(transparent 68%, rgb(255 255 255 / 0.26) 68%); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+  .maqueta-ventana { border-radius: 1.5rem; background: var(--c-fondo); color: var(--c-texto); box-shadow: 0 40px 80px -30px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(255 255 255 / 0.25); overflow: hidden; transform: perspective(1800px) rotateY(-6deg) rotateX(3deg) scale(.96); transform-origin: left center; }
+  .maqueta-barra { display: flex; align-items: center; gap: 0.4rem; padding: 0.8rem 1rem; border-bottom: 1px solid var(--linea); }
+  .maqueta-barra span { width: 0.6rem; height: 0.6rem; border-radius: 50%; background: color-mix(in srgb, var(--c-texto) 20%, transparent); }
+  .maqueta-barra em { margin-left: 0.75rem; font-style: normal; font-family: var(--fuente-mono); font-size: 0.72rem; padding: 0.2rem 0.8rem; border-radius: 999px; background: color-mix(in srgb, var(--c-texto) 6%, transparent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60%; }
+  .maqueta-cuerpo { display: grid; grid-template-columns: 18% 1fr; gap: 1rem; padding: 1rem; }
+  .maqueta-lateral { display: grid; align-content: start; gap: 0.6rem; }
+  .maqueta-lateral i { height: 0.6rem; border-radius: 999px; background: color-mix(in srgb, var(--c-texto) 10%, transparent); }
+  .maqueta-lateral i.activo { background: var(--degradado); }
+  .maqueta-rejilla { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.35rem; }
+  .maqueta-rejilla b { aspect-ratio: 1 / 0.8; border-radius: 0.45rem; background: color-mix(in srgb, var(--c-texto) 5%, transparent); }
+  .maqueta-rejilla b.t1 { background: var(--c-primario); }
+  .maqueta-rejilla b.t2 { background: var(--c-acento); }
+  .maqueta-rejilla b.t3 { background: color-mix(in srgb, var(--c-primario) 35%, var(--c-fondo)); }
+
+  .maqueta-movil { position: absolute; right: 0; bottom: 0; width: 36%; min-width: 8.5rem; max-width: 13rem; border-radius: 1.75rem; padding: 0.45rem; background: var(--tinta); box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.6); }
+  .maqueta-movil-pantalla { display: grid; gap: 0.55rem; justify-items: center; border-radius: 1.35rem; padding: 1.1rem 0.9rem 1.3rem; background: var(--c-fondo); color: var(--c-texto); }
+  .maqueta-movil .linea { display: block; width: 100%; height: 0.55rem; border-radius: 999px; background: color-mix(in srgb, var(--c-texto) 10%, transparent); }
+  .maqueta-movil .linea.corta { width: 45%; }
+  .maqueta-movil .linea.media { width: 70%; }
+  .boton-fichar { display: grid; place-items: center; width: 4.75rem; height: 4.75rem; margin-block: 0.5rem; border-radius: 50%; background: var(--degradado); color: #fff; box-shadow: 0 0 0 8px color-mix(in srgb, var(--c-primario) 15%, transparent); }
+  .maqueta-aviso { position: absolute; left: -0.5rem; bottom: 18%; display: flex; align-items: center; gap: 0.6rem; padding: 0.7rem 1rem; border-radius: 999px; background: #fff; color: var(--c-primario); box-shadow: 0 20px 40px -16px rgb(0 0 0 / 0.5); }
+  .maqueta-aviso i { width: 5rem; height: 0.5rem; border-radius: 999px; background: color-mix(in srgb, var(--c-texto) 14%, transparent); }
+  @media (max-width: 640px) {
+    .maqueta-ventana { transform: none; }
+    .maqueta-aviso { left: 0; bottom: 30%; }
+  }
+</style>
