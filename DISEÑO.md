@@ -55,3 +55,11 @@ reconocibles, sin rótulos ni logotipos. La de portada va fundida en el degradad
 - Nada de secciones encajonadas en una columna estrecha ni tarjetas blancas flotando sobre gris.
 - Nada de capturas de pantalla reales en la maqueta: es CSS y solo lleva el nombre del negocio.
 - Nada de cifras ni precios en los componentes: todo sale de `site.yaml`.
+
+## Páginas propias (fichas)
+Con la misma piel que la portada: cabecera y pie de la plantilla, migas (Inicio › Sección › Elemento), hero con la foto del
+elemento (sin foto, su icono), `detalle` en párrafos, tabla de datos, caja de contacto, galería (`imagenes`) y otros elementos
+de la misma lista.
+Diseño de la ficha: banda en degradado con rejilla fina (migas, título enorme en blanco, precio en píldora, botón blanco y WhatsApp;
+foto con anillo o icono en cuadro blanco), banda clara con el texto y la tabla de datos sobre fondo suave, caja de contacto en tinta,
+galería en banda suave y otras funciones en banda tinta. La cabecera fija queda sólida.

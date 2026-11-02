@@ -55,12 +55,44 @@ secciones:
     titulo: Todo lo que hacías con papel, grupos de mensajes y hojas de cálculo.
     texto: "Seis herramientas que se hablan entre ellas. Empiezas por la que más te duele y añades el resto cuando quieras."
     items:
-      - { titulo: Cuadrante semanal, texto: "Arrastra turnos, copia la semana anterior y publícala. Cada persona recibe el suyo en el móvil.", icono: calendario }
-      - { titulo: Fichaje desde el móvil, texto: "Entrada, pausas y salida con un toque. Cumple el registro de jornada obligatorio.", icono: reloj }
-      - { titulo: Vacaciones y ausencias, texto: "Tu equipo las pide desde la aplicación y tú las apruebas viendo quién falta cada día.", icono: sol }
+      - titulo: Cuadrante semanal
+        texto: "Arrastra turnos, copia la semana anterior y publícala. Cada persona recibe el suyo en el móvil."
+        icono: calendario
+        detalle: |
+          El cuadrante es la pantalla donde empieza todo. Ves la semana de tu equipo en una cuadrícula: cada fila es una persona y cada columna, un día. Para poner un turno basta con arrastrarlo; si la semana se parece a la anterior, la copias entera y solo cambias lo que haya cambiado.
+
+          La aplicación te avisa cuando alguien se queda sin descanso entre jornadas o cuando un día queda cojo de gente, de modo que los fallos se ven antes de publicar y no el lunes por la mañana. Puedes guardar plantillas de turnos para la temporada alta, para los puentes o para las semanas de rebajas.
+
+          Al publicar, cada persona recibe su turno en el móvil y no tienes que escribir ni un solo mensaje. Si después algo cambia, el aviso llega solo a quien afecta. Se acabó la foto del papel pegado en la cocina y la hoja de cálculo que nadie tiene actualizada.
+      - titulo: Fichaje desde el móvil
+        texto: "Entrada, pausas y salida con un toque. Cumple el registro de jornada obligatorio."
+        icono: reloj
+        detalle: |
+          Cada persona abre Cuadra en su móvil y ficha con un toque: entrada, pausa para el café o la comida y salida. No hace falta comprar un lector ni instalar nada en el local, y vale tanto para quien está tras la barra como para quien trabaja en la calle.
+
+          El registro queda guardado con la fecha y la hora de cada marca, tal como exige la normativa de registro de jornada. Si alguien se olvida de fichar, puede pedir la corrección desde la propia aplicación y tú la apruebas o la rechazas con un gesto, de forma que queda constancia de quién cambió qué y cuándo.
+
+          Tú ves en tiempo real quién está dentro, quién ha salido y quién llega tarde. Al cerrar el mes, las horas de cada persona están ya sumadas y comparadas con su turno, sin tener que sacar la calculadora ni revisar hojas sueltas.
+      - titulo: Vacaciones y ausencias
+        texto: "Tu equipo las pide desde la aplicación y tú las apruebas viendo quién falta cada día."
+        icono: sol
+        detalle: |
+          Las vacaciones suelen ser el origen de los malentendidos en un equipo pequeño. Con Cuadra, cada persona ve cuántos días le quedan y los pide desde el móvil, eligiendo las fechas en un calendario. A ti te llega la solicitud con el contexto que necesitas: quién más está ausente esos días y cómo queda el cuadrante.
+
+          Puedes aprobar, rechazar o proponer otras fechas con un comentario, y la persona recibe la respuesta al instante. Las bajas, los permisos y los días de asuntos propios se registran igual, cada uno con su color, para que el calendario del equipo se lea de un vistazo.
+
+          Al aprobar unas vacaciones, los turnos de esos días se liberan solos y puedes cubrirlos sin salir de la pantalla. Y al final del año tienes un resumen claro de lo disfrutado por cada persona, sin discusiones ni cuentas a mano.
       - { titulo: Cambios de turno, texto: "Dos compañeros se cambian el turno y a ti solo te llega el visto bueno.", icono: flechas }
       - { titulo: Avisos al equipo, texto: "Un mensaje a todo el local o solo al turno de tarde, sin mezclarlo con lo personal.", icono: campana }
-      - { titulo: Informes para la gestoría, texto: "Horas trabajadas, extras y ausencias del mes en un fichero listo para enviar.", icono: documento }
+      - titulo: Informes para la gestoría
+        texto: "Horas trabajadas, extras y ausencias del mes en un fichero listo para enviar."
+        icono: documento
+        detalle: |
+          A final de mes, la gestoría necesita las horas trabajadas, las extras y las ausencias de cada persona. Cuadra las reúne por ti: eliges el mes y descargas un fichero ordenado, con un resumen por trabajador y el detalle de cada jornada.
+
+          Las horas extra salen separadas de las ordinarias, calculadas a partir del fichaje real y del turno previsto, y las ausencias aparecen con su motivo: vacaciones, baja o permiso. Así tu gestoría recibe siempre el mismo formato y tú dejas de recomponer los datos a partir de mensajes y papeles.
+
+          Si hay una duda, puedes entrar en la jornada concreta y ver las marcas de entrada, pausa y salida, junto con las correcciones aprobadas. Es una forma tranquila de llegar a la nómina con los datos revisados y de tener a mano la documentación si alguna vez te la piden.
 
   producto:
     activa: true

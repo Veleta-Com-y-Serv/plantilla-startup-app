@@ -1,9 +1,11 @@
 ---
 // Funciones: banda clara a todo el ancho; titular partido (título a la izquierda, texto a la derecha) y rejilla
 // 3×2 de celdas separadas por líneas finas (sin tarjetas), cada una con su icono en degradado.
-// Campos: `items[]` (titulo, texto, icono). Sin items solo se ve el titular.
+// Campos: `items[]` (titulo, texto, icono, detalle). Sin items solo se ve el titular. Las funciones con `detalle`
+// tienen página propia (/funciones/<slug>/) y la celda entera enlaza a ella; las demás quedan como texto.
 import { seccion } from '../../data/site';
 import Icono from '../ui/Icono.astro';
+import { enlaceDe } from '../../lib/paginas';
 interface Props { id: string }
 const s = seccion(Astro.props.id);
 const items = s ? s.items.filter((i) => i && i.titulo) : [];
@@ -26,8 +28,9 @@ const items = s ? s.items.filter((i) => i && i.titulo) : [];
               <li class="funcion group relative py-8 sm:p-7 md:p-10">
                 <span class="mono absolute top-8 right-0 text-xs opacity-40 sm:top-7 sm:right-7 md:top-10 md:right-10">{String(i + 1).padStart(2, '0')}</span>
                 <span class="icono-caja"><Icono nombre={it.icono} tam={26} /></span>
-                <h3 class="mt-8 text-2xl md:text-[1.7rem]">{it.titulo}</h3>
+                <h3 class="mt-8 text-2xl md:text-[1.7rem]">{enlaceDe(it) ? <a href={enlaceDe(it)} class="funcion-enlace">{it.titulo}</a> : it.titulo}</h3>
                 {it.texto && <p class="mt-3 max-w-sm opacity-70">{it.texto}</p>}
+                {enlaceDe(it) && <span class="funcion-ver mono" aria-hidden="true">Ver más <Icono nombre="flecha" tam={16} /></span>}
               </li>
             ))}
           </ul>
@@ -40,6 +43,11 @@ const items = s ? s.items.filter((i) => i && i.titulo) : [];
 <style>
   .funciones-rejilla { border-top: 1px solid var(--linea); }
   .funcion { border-bottom: 1px solid var(--linea); transition: background-color 0.2s ease; }
+  .funcion-enlace { text-decoration: none; color: inherit; }
+  .funcion-enlace::after { content: ""; position: absolute; inset: 0; }
+  .funcion-enlace:focus-visible { outline: none; }
+  .funcion:has(.funcion-enlace:focus-visible) { outline: 2px solid var(--c-primario); outline-offset: -2px; }
+  .funcion-ver { display: inline-flex; align-items: center; gap: .4rem; margin-top: 1.25rem; font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; color: var(--c-primario); }
   .funcion:hover { background: var(--suave); }
   @media (min-width: 640px) {
     .funcion:nth-child(odd) { border-right: 1px solid var(--linea); }
